@@ -1,36 +1,501 @@
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
 
+/*
+  Theme tokens. Every color, font and radius on the site comes from here.
+  Palette is the HSJ brand: blood red, white, black. Change it here only.
+*/
 @theme {
   --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Manrope", sans-serif;
+  --font-display: "Bricolage Grotesque", "Hanken Grotesk", sans-serif;
 
-  --color-primary: #8f0000;
-  --color-primary-hover: #700000;
-  --color-primary-container: #bc0000;
-  --color-on-primary: #ffffff;
-  --color-secondary: #00629e;
-  --color-secondary-hover: #004d7c;
-  --color-secondary-container: #61b4fe;
-  --color-tertiary: #6d5e00;
-  --color-background-custom: #f9f9fc;
-  --color-surface-container: #eeeef0;
-  --color-surface-container-low: #f3f3f6;
-  --color-surface-container-lowest: #ffffff;
-  --color-on-surface: #1a1c1e;
-  --color-on-surface-variant: #5d3f3b;
-  --color-outline-variant: #e6bdb6;
+  --color-blood: #a00c1e;         /* primary red, 8.2:1 on white */
+  --color-blood-deep: #720914;    /* hover / pressed */
+  --color-blood-bright: #d91728;  /* accents and large type only */
+  --color-ink: #180b0e;           /* near-black with a warm cast */
+  --color-ink-soft: #5a4448;      /* secondary text on light */
+  --color-paper: #ffffff;
+  --color-blush: #fbf5f4;         /* soft section background */
+  --color-line: #eddcd9;          /* hairlines and card borders */
+  --color-on-blood-soft: #f5ccd1; /* secondary text on red */
+
+  /* Jamaican flag accents. Decorative only, never body text on white. */
+  --color-jam-green: #009b3a;
+  --color-jam-gold: #fed100;
+  --color-jam-green-soft: #eaf6ee;
+  --color-jam-gold-soft: #fff8e1;
+
+  --radius-card: 1.25rem;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    background-color: var(--color-background-custom);
-    color: var(--color-on-surface);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-blood);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-blood-bright);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
-.asymmetric-grid {
-  background-image: linear-gradient(to right, rgba(145, 111, 105, 0.04) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(145, 111, 105, 0.04) 1px, transparent 1px);
-  background-size: 10% 80px;
+@layer components {
+  /* Display type scale, fluid from phone to desktop */
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6.5vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.9rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    line-height: 1.15;
+  }
+
+  .eyebrow {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-blood);
+  }
+
+  /* Shared button styles so every CTA behaves the same */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 1.7rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease,
+      border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-blood {
+    background-color: var(--color-blood);
+    color: var(--color-paper);
+    box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--color-blood) 55%, transparent);
+  }
+
+  .btn-blood:hover {
+    background-color: var(--color-blood-deep);
+  }
+
+  .btn-outline {
+    border: 1.5px solid var(--color-line);
+    color: var(--color-ink);
+    background-color: var(--color-paper);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-blood);
+    color: var(--color-blood);
+  }
+
+  .btn-white {
+    background-color: var(--color-paper);
+    color: var(--color-blood);
+  }
+
+  .btn-white:hover {
+    background-color: var(--color-blush);
+  }
+
+  .card {
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  /* The flag thread: green, gold, black. Sits beside eyebrows and on the
+     footer edge as a quiet reminder of where this society lives. */
+  .flag-rule {
+    display: inline-block;
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to right,
+      var(--color-jam-green) 0 34%,
+      var(--color-jam-gold) 34% 67%,
+      var(--color-ink) 67% 100%
+    );
+  }
+
+  /* Full-width version of the thread, used on the footer's top edge */
+  .flag-edge {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      var(--color-jam-green) 0 34%,
+      var(--color-jam-gold) 34% 67%,
+      var(--color-ink) 67% 100%
+    );
+  }
+}
+
+/* --- Navbar ------------------------------------------------------------- */
+/* The sliding droplet marker. JS sets --x and --w; it eases between links. */
+.nav-marker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: var(--w, 0px);
+  transform: translateX(var(--x, 0px));
+  opacity: 0;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.nav-marker[data-show='true'] {
+  opacity: 1;
+}
+
+/* Soft blood pill behind the focused link */
+.nav-marker-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: color-mix(in srgb, var(--color-blood) 9%, transparent);
+}
+
+/* The droplet pin that drips off the bottom-centre of the pill */
+.nav-marker-drop {
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  color: var(--color-blood);
+}
+
+/* Progress line that fills as the page scrolls. JS writes --p (0..1). */
+.nav-progress-fill {
+  transform: scaleX(var(--p, 0));
+  transform-origin: left center;
+  transition: transform 0.12s linear;
+}
+
+/* Custom hamburger that morphs to an X */
+.ham {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 14px;
+}
+
+.ham span {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: currentColor;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+}
+
+.ham span:nth-child(1) { top: 0; }
+.ham span:nth-child(2) { top: 6px; }
+.ham span:nth-child(3) { top: 12px; }
+
+.ham[data-open='true'] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.ham[data-open='true'] span:nth-child(2) { opacity: 0; transform: scaleX(0.4); }
+.ham[data-open='true'] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile panel links stagger in on open */
+@keyframes nav-item-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.nav-mobile-item {
+  animation: nav-item-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-marker,
+  .nav-progress-fill,
+  .ham span {
+    transition: none;
+  }
+  .nav-mobile-item {
+    animation: none;
+  }
+}
+
+/* --- Conditions: specimen vials ----------------------------------------- */
+/* Each condition is a vial. Selecting it fills the glass with blood. The
+   fill is a selection cue, not a measurement. */
+.vial {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  border: 2px solid var(--color-line);
+  border-radius: 14px 14px 46px 46px;
+  background: color-mix(in srgb, var(--color-blush) 55%, white);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.vial-cap {
+  background: color-mix(in srgb, var(--color-ink) 65%, transparent);
+  transition: background-color 0.3s ease;
+}
+
+.vial-tab:hover .vial-cap,
+.vial-tab[aria-selected='true'] .vial-cap {
+  background: var(--color-blood);
+}
+
+.vial-liquid {
+  position: absolute;
+  inset: 0;
+  transform: translateY(74%);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  background: linear-gradient(
+    180deg,
+    var(--color-blood-bright),
+    var(--color-blood) 55%,
+    var(--color-blood-deep)
+  );
+}
+
+/* A meniscus highlight riding the top of the liquid */
+.vial-liquid::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  border-radius: 50%;
+  background: color-mix(in srgb, white 50%, var(--color-blood-bright));
+  opacity: 0.55;
+}
+
+.vial-numeral {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  letter-spacing: 0.01em;
+  color: var(--color-blood);
+  transition: color 0.4s ease;
+}
+
+.vial-bubble {
+  position: absolute;
+  bottom: 10%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, white 45%, var(--color-blood-bright));
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Hover on an unselected vial previews the fill */
+.vial-tab:hover .vial {
+  border-color: var(--color-blood);
+  box-shadow: 0 14px 32px -20px color-mix(in srgb, var(--color-blood) 70%, transparent);
+  transform: translateY(-4px);
+}
+
+.vial-tab:hover .vial-liquid {
+  transform: translateY(58%);
+}
+
+/* Selected vial fills up */
+.vial-tab[aria-selected='true'] .vial {
+  border-color: var(--color-blood);
+}
+
+.vial-tab[aria-selected='true'] .vial-liquid {
+  transform: translateY(20%);
+}
+
+.vial-tab[aria-selected='true'] .vial-numeral {
+  color: var(--color-paper);
+}
+
+.vial-tab[aria-selected='true'] .vial-bubble {
+  animation: bubble-rise 3.4s ease-in infinite;
+}
+
+@keyframes bubble-rise {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  15% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-120px) scale(1); }
+}
+
+/* Detail panel slides in each time the selection changes */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.panel-in {
+  animation: panel-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vial,
+  .vial-liquid,
+  .vial-numeral {
+    transition: none;
+  }
+  .vial-tab:hover .vial {
+    transform: none;
+  }
+  .vial-bubble {
+    animation: none !important;
+  }
+  .panel-in {
+    animation: none;
+  }
+}
+
+/* --- Scroll reveal ------------------------------------------------------ */
+/* Reveal.jsx adds .in-view when the element enters the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Droplet motif ------------------------------------------------------ */
+/* Classic CSS teardrop: one sharp corner rotated to point up. */
+.drop-dot {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  background-color: var(--color-blood-bright);
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg) scale(0.55);
+  opacity: 0.18;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition-delay: var(--d, 0ms);
+}
+
+.drop-count.counted .drop-dot {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+/* Hero droplet: falls in on load, then a ripple ring expands once. */
+@keyframes drop-fall {
+  from {
+    transform: translateY(-70px) scale(0.7);
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0.4);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+.hero-drop {
+  animation: drop-fall 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) 0.25s backwards;
+}
+
+.hero-ripple {
+  /* invisible at rest, only shows during the one-shot ripple */
+  opacity: 0;
+  animation: ripple 0.9s ease-out 0.9s backwards;
+}
+
+/* --- Reduced motion: everything lands instantly ------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .drop-dot {
+    opacity: 1;
+    transform: rotate(45deg);
+    transition: none;
+  }
+
+  .reveal {
+    transform: none;
+  }
+
+  .hero-drop,
+  .hero-ripple {
+    animation: none;
+  }
+
+  .hero-ripple {
+    opacity: 0;
+  }
+
+  .btn,
+  .btn:active {
+    transform: none;
+  }
 }
