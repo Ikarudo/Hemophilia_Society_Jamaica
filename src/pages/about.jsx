@@ -26,7 +26,7 @@ function DateBadge({ iso }) {
 const roots = [
   { color: 'bg-jam-green', title: 'Rooted in Jamaica', body: 'Run by Jamaicans, for Jamaican families, from Negril to Morant Point.' },
   { color: 'bg-jam-gold', title: 'Community first', body: 'Patients, parents and carers lead the society. Lived experience sets the agenda.' },
-  { color: 'bg-blood', title: 'Globally connected', body: 'Linked to the World Federation of Hemophilia and its network across 147+ countries.' },
+  { color: 'bg-ink', title: 'Globally connected', body: 'Linked to the World Federation of Hemophilia and its network across 147+ countries.' },
 ];
 
 export default function About() {

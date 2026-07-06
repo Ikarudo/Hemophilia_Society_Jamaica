@@ -22,7 +22,7 @@ const collage = [
   {
     alt: 'Care supplies beside a Jamaican flag',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBFuVz4n8BZnoYX6uygMtAdsy-7YUWuh6MjY3P2ouWcJE5N3GGXeWzF_vFRq3YeSQND3nEyByit82btRZMlTuoKYuhefeZwFZmu1EQio4XGoC75N27DJBikTWVXOyS4Nn0w_rodhY1YeGzwYroxcaQ0Y4OK3MyaBYiUyRMrq1iY052U46FI05tvfpl6HS24iN-WfWQhhUWCfnyoKLuaPxiLjvt-kkUmgKl1JrflYt7MjX8RKFym9TitfqJnVhrE52QqextckY-sVLyn',
-    pos: 'left-[33%] top-[68%] w-[34%] aspect-[240/180]',
+    pos: 'left-[33%] top-[72%] w-[34%] aspect-[240/180]',
   },
   {
     alt: 'Modern healthcare facility corridor',
