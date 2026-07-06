@@ -9,7 +9,7 @@ import Contact from './pages/contact.jsx';
 import Donate from './pages/donate.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
