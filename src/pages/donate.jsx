@@ -81,13 +81,11 @@ export default function Donate() {
 
         <div className="max-w-7xl mx-auto mt-5">
           <Reveal className="bg-blush border border-line rounded-2xl p-5 text-sm text-ink-soft leading-relaxed">
-            The account details and handles above are placeholders awaiting
-            confirmation from HSJ. Before sending anything, confirm the details
-            with us directly at{' '}
+            We accept cash our kindness. For more ways to donate, please reach out to {' '}
             <a href={`mailto:${site.email}`} className="text-blood underline underline-offset-2">
               {site.email}
             </a>
-            . We're happy to provide a receipt for any gift.
+            . We are eternally grateful for any assistance to our noble cause. 
           </Reveal>
         </div>
       </section>

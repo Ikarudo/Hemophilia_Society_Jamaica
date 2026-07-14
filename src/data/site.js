@@ -25,27 +25,27 @@ export const site = {
   donate: {
     // PLACEHOLDER bank details. Confirm every field with the treasurer.
     bank: {
-      bankName: '{{ VERIFY: bank name }}',
-      accountName: 'Haemophilia Society of Jamaica',
-      accountNumber: '{{ VERIFY: account number }}',
-      accountType: '{{ VERIFY: account type and currency }}',
-      branch: '{{ VERIFY: branch }}',
+      bankName: 'National Commercial Bank',
+      accountName: 'Haemaphili',
+      accountNumber: '404383876',
+      accountType: 'SAVINGS',
+      branch: 'UNIVERSITY BRANCH',
     },
     // PLACEHOLDER money app handles
     apps: [
       {
         name: 'PayPal',
-        handle: 'paypal.me/hsjamaica',
+        handle: 'COMING SOON',
         note: 'Works from anywhere in the world with a card or PayPal balance.',
       },
       {
         name: 'GiftMe',
-        handle: '@hsjamaica',
+        handle: 'COMING SOON',
         note: 'For supporters giving from within Jamaica.',
       },
       {
         name: 'Zelle',
-        handle: 'give@hsjamaica.org.jm',
+        handle: 'COMING SOON',
         note: 'For supporters with a US bank account.',
       },
     ],
